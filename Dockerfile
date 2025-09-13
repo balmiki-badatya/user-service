@@ -4,10 +4,18 @@ FROM amazonlinux:2
 WORKDIR /app
 
 #Copy files to /app
-cp . /app
+COPY . /app
 
 #Install JAVA
-RUN yum install java-21-amazon-corretto-devel
+RUN yum update -y && \
+    yum install -y curl && \
+    curl -L -o /etc/yum.repos.d/corretto.repo https://yum.corretto.aws/corretto.repo && \
+    rpm --import https://yum.corretto.aws/corretto.key && \
+    yum install -y java-21-amazon-corretto-devel && \
+    yum clean all
+
+#RUN yum install -y java-21-openjdk-devel
+RUN chmod +x ./gradlew
 
 # build the application
 RUN ./gradlew clean build
@@ -15,5 +23,6 @@ RUN ./gradlew clean build
 # Expose port to host
 EXPOSE 9090
 
+ENTRYPOINT ["java"]
 # Run the application
-CMD["./gradlew","bootRun"]
+CMD ["-jar", "build/libs/user-service-0.0.1-SNAPSHOT.jar"]
