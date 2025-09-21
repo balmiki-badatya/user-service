@@ -32,7 +32,7 @@ pipeline {
         stage ("sonarqube-analysis") {
             steps {
                 withSonarQubeEnv('sonarqube-server') {
-                    sh 'gradle sonarqube'
+                    sh './gradlew sonar'
                 }
             }
         }
