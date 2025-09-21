@@ -21,18 +21,18 @@ pipeline {
         stage ("gradle-build") {
             steps {
                 sh 'echo building gradle project'
-                sh 'gradle clean build -x test --refresh-dependencies'
+                sh './gradlew clean build -x test --refresh-dependencies'
             }
         }
         stage ("test") {
             steps {
-                sh 'gradle test'
+                sh './gradlew test'
             }
         }
         stage ("sonarqube-analysis") {
             steps {
                 withSonarQubeEnv('sonarqube-server') {
-                    sh './gradlew sonar'
+                    sh './gradlew sonarqube --info --stacktrace'
                 }
             }
         }
