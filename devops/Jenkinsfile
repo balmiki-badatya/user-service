@@ -2,6 +2,7 @@ pipeline {
     agent any
     tools {
         gradle 'gradle'
+        jdk 'open-jdk-21'
     }
     stages {
         stage ("clean-workspace"){
