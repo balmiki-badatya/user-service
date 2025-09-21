@@ -31,7 +31,7 @@ pipeline {
         }
         stage ("sonarqube-analysis") {
             steps {
-                sh 'curl -v https://https://sonar.microops.io/api/system/status || echo "SonarQube server unreachable"'
+                sh 'curl -v https://sonar.microops.io/api/system/status || echo "SonarQube server unreachable"'
                 withSonarQubeEnv('sonarqube-server') {
                     sh './gradlew sonar --info --stacktrace'
                 }
