@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+    tools {
+        gradle 'gradle'
+    }
+    stages {
+        stage ("clean-workspace"){
+            steps{
+                sh 'echo cleaning workspace'
+                cleanWS()
+            }
+        }
+        stage ("git-checkout") {
+            steps {
+                sh 'echo cloning git repo'
+                git branch: 'master',
+                    url: 'https://github.com/balmiki-badatya/user-service.git'
+            }
+        }
+        stage ("gradle-build") {
+            steps {
+                sh 'echo building gradle project'
+                sh 'gradle clean build -x test --refresh-dependencies'
+            }
+        }
+        stage ("test") {
+            steps {
+                sh 'gradle test'
+            }
+        }
+        stage ("sonarqube-analysis") {
+            steps {
+                withSonarQubeEnv('sonarqube-server') {
+                    sh 'gradle sonarqube'
+                }
+            }
+        }
+    }
+}

@@ -1,7 +1,9 @@
 plugins {
 	id 'java'
+	id 'jacoco'
 	id 'org.springframework.boot' version '3.5.6-SNAPSHOT'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id "org.sonarqube" version "6.3.1.5724"
 }
 
 group = 'com.microops'
@@ -11,6 +13,31 @@ description = 'User Lifecyecle'
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+jacoco {
+	toolVersion = "0.8.12"
+}
+
+jacocoTestReport {
+	reports {
+		xml.required = true
+		html.required = true
+	}
+}
+
+sonarqube {
+	properties {
+		property "sonar.projectKey", "user-service"
+		property 'sonar.projectName', 'user-service'
+		property 'sonar.java.source', 21
+		property 'sonar.junit.reportPaths', 'build/results'
+		property 'encoding', 'UTF-8'
+		property 'charSet', 'UTF-8'
+		property "sonar.sources", "src/main/java"
+		property "sonar.tests", "src/test/java"
+		property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
 	}
 }
 
@@ -39,4 +66,8 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks.named('sonarqube') {
+	dependsOn(jacocoTestReport)
 }
