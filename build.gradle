@@ -21,6 +21,7 @@ jacoco {
 }
 
 jacocoTestReport {
+	dependesOn(test)
 	reports {
 		xml.required = true
 		html.required = true
@@ -32,7 +33,7 @@ sonarqube {
 		property "sonar.projectKey", "user-service"
 		property 'sonar.projectName', 'user-service'
 		property 'sonar.java.source', 21
-		property 'sonar.junit.reportPaths', 'build/results'
+		property 'sonar.junit.reportPaths', 'bbuild/test-results/test'
 		property 'encoding', 'UTF-8'
 		property 'charSet', 'UTF-8'
 		property "sonar.sources", "src/main/java"
@@ -68,6 +69,6 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-tasks.named('sonarqube') {
+tasks.named('sonar') {
 	dependsOn(jacocoTestReport)
 }
