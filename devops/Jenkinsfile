@@ -7,7 +7,7 @@ pipeline {
         stage ("clean-workspace"){
             steps{
                 sh 'echo cleaning workspace'
-                cleanWS()
+                cleanWs()
             }
         }
         stage ("git-checkout") {
