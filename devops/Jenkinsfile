@@ -33,7 +33,7 @@ pipeline {
             steps {
                 sh 'curl -v https://sonar.microops.io/api/system/status || echo "SonarQube server unreachable"'
                 withSonarQubeEnv('sonarqube-server') {
-                    sh './gradlew sonar --info --stacktrace'
+                    sh './gradlew sonar -Dsonar.qualitygate=microops-custom-gate'
                 }
             }
         }
