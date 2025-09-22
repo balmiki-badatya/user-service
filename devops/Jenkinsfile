@@ -24,7 +24,7 @@ pipeline {
                 sh './gradlew clean build -x test --refresh-dependencies'
             }
         }
-        stage ("test") {
+        stage ("unit-test") {
             steps {
                 sh './gradlew test'
             }
@@ -35,6 +35,11 @@ pipeline {
                 withSonarQubeEnv('sonarqube-server') {
                     sh './gradlew sonar -Dsonar.qualitygate=microops-custom-gate'
                 }
+            }
+        }
+        stage ("qualitygate-check") {
+            timeout(time: 20, unit: 'MINUTES') {
+                 waitForQualityGate abortPipeline: false, credentialsId: 'sonar-jenkins-token'
             }
         }
     }
