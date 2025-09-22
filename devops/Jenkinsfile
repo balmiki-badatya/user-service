@@ -38,8 +38,10 @@ pipeline {
             }
         }
         stage ("qualitygate-check") {
-            timeout(time: 20, unit: 'MINUTES') {
-                 waitForQualityGate abortPipeline: false, credentialsId: 'sonar-jenkins-token'
+            steps {
+                timeout(time: 20, unit: 'MINUTES') {
+                     waitForQualityGate abortPipeline: false, credentialsId: 'sonar-jenkins-token'
+                }
             }
         }
     }
