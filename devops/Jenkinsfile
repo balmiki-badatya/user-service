@@ -46,7 +46,7 @@ pipeline {
         }
         stage("Trivy file scan") {
             steps {
-                sh 'trivy fs --format json --output trivy-scan.json .'
+                sh 'trivy fs --format table --output trivy-scan.html .'
             }
         }
         stage("OWASP Dependency Check") {
