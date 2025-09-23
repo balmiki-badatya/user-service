@@ -61,9 +61,6 @@ pipeline {
         }
         stage("Docker Tag and Push to ECR") {
             steps {
-                sh '''aws ecr get-login-password --region us-west-1 | \
-                docker login --username AWS --password-stdin 970547378654.dkr.ecr.us-west-1.amazonaws.com'''
-                sh  'echo Successfully logged in to ECR'
                 sh 'docker build -t user-service .'
                 sh 'docker tag user-service:latest ${REPOSITORY_URI}:${IMAGE_TAG}'
                 sh 'docker push  ${REPOSITORY_URI}:${IMAGE_TAG}'
