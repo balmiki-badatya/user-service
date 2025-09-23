@@ -5,31 +5,31 @@ pipeline {
         jdk 'open-jdk-21'
     }
     stages {
-        stage ("clean-workspace"){
-            steps{
+        stage("Clean Workspace"){
+            steps {
                 sh 'echo cleaning workspace'
                 cleanWs()
             }
         }
-        stage ("git-checkout") {
+        stage("Git Checkout") {
             steps {
                 sh 'echo cloning git repo'
                 git branch: 'master',
                     url: 'https://github.com/balmiki-badatya/user-service.git'
             }
         }
-        stage ("gradle-build") {
+        stage("Gradle Build") {
             steps {
                 sh 'echo building gradle project'
                 sh './gradlew clean build -x test --refresh-dependencies'
             }
         }
-        stage ("unit-test") {
+        stage("Unit Test") {
             steps {
                 sh './gradlew test'
             }
         }
-        stage ("sonarqube-analysis") {
+        stage("Sonarqube Analysis") {
             steps {
                 sh 'curl -v https://sonar.microops.io/api/system/status || echo "SonarQube server unreachable"'
                 withSonarQubeEnv('sonarqube-server') {
@@ -37,11 +37,22 @@ pipeline {
                 }
             }
         }
-        stage ("qualitygate-check") {
+        stage("Quality Gate Check") {
             steps {
                 timeout(time: 20, unit: 'MINUTES') {
                      waitForQualityGate abortPipeline: false, credentialsId: 'sonar-jenkins-token'
                 }
+            }
+        }
+        stage("Trivy file scan") {
+            steps {
+                sh 'trivy fs --format json --output trivy-scan.json .'
+            }
+        }
+        stage("OWASP Dependency Check") {
+            steps {
+                dependencyCheck additionalArguments: '--scan ./', odcInstallation: 'Dependency-Check'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
     }

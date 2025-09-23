@@ -14,15 +14,11 @@ RUN yum update -y && \
     yum install -y java-21-amazon-corretto-devel && \
     yum clean all
 
-#RUN yum install -y java-21-openjdk-devel
-RUN chmod +x ./gradlew
-
 # build the application
-RUN ./gradlew clean build
-
+COPY build/libs/user-service-0.0.1-SNAPSHOT.jar /app/user-service.war
 # Expose port to host
 EXPOSE 9090
 
 ENTRYPOINT ["java"]
 # Run the application
-CMD ["-jar", "build/libs/user-service-0.0.1-SNAPSHOT.jar"]
+CMD ["-jar", "/app/user-service.jar"]
