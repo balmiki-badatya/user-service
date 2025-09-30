@@ -11,3 +11,4 @@ jobs:
     steps:
       - name: "checkout repository"
         uses: actions/checkout@v5
+        run: ls -al
