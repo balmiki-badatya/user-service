@@ -7,15 +7,7 @@ on:
 jobs:
   build:
     name: "Build User-Service"
-  unit-test:
-    name: "Unit test"
-  sonarQube-analysis:
-    name: "SonarQube Analysis"
-  qualityGate-check:
-    name: "QualityGate Analysis"
-  trivy-scan:
-    name: "Trivy file Scan"
-  build-tag-docker-image:
-    name: "Build and Tag Docker Image"
-  push-to-ecr:
-    name: "Push Docker Image to ECR"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "checkout repository"
+        run: echo "checking out repo"
