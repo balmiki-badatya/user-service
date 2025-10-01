@@ -6,9 +6,14 @@ on:
     branches: [ master ]
 jobs:
   build:
-    name: "Build User-Service"
+    name: Build User-Service
     runs-on: ubuntu-latest
     steps:
-      - name: "checkout repository"
+      - name: Checkout Repository
         uses: actions/checkout@v5
       - run: ls -al
+  test:
+    name: Unit Test
+    runs-on: ubuntu-latest
+    steps:
+      - run: ls -la
