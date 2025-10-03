@@ -1,7 +1,6 @@
 name: user-service deployment
 
 on:
-  pull_request:
   workflow_dispatch:
 
 jobs:

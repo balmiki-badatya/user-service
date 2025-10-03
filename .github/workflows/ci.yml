@@ -18,3 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: ls -la
+  env-test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: env-test
+        run: |
+          echo ${{ github.run.number }}
