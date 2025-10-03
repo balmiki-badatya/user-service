@@ -24,5 +24,6 @@ jobs:
     steps:
       - name: env-test
         run: |
+          echo ${{ github.REF_NAME }}
           echo ${{ github.run_number }}
           echo $GITHUB_RUN_NUMBER
