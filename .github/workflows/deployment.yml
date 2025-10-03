@@ -1,6 +1,8 @@
 name: user-service deployment
+
 on:
   workflow_dispatch:
+
 jobs:
   build-docker-image:
     name: Build Docker Image
