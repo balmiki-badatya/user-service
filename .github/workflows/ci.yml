@@ -36,5 +36,5 @@ jobs:
         id: op
         run: |
           echo "age=29" >> $GITHUB_OUTPUT
-      - name: output
-        run: echo ${{ steps.op.outputs.age }}
+      - name: output-access-from-step
+        run: echo "age is - ${{ steps.op.outputs.age }}"
