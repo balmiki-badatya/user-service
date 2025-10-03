@@ -25,3 +25,4 @@ jobs:
       - name: env-test
         run: |
           echo ${{ github.run.number }}
+          echo $GITHUB_RUN_NUMBER
