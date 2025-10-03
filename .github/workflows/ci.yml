@@ -44,4 +44,4 @@ jobs:
     needs: [ build, env-test, output-generate]
     steps:
       run: |
-        echo "age from different job: ${{ jobs.output-generate.steps.op.outputs.age }}"
+        echo "age from different job ${{ jobs.output-generate.steps.op.outputs.age }}"
