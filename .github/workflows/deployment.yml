@@ -10,5 +10,5 @@ jobs:
     steps:
       - name: env
         run: |
-          ENV_VAR=${{ github.run_number }}
+          ENV_VAR = ${{ github.run.number }}
           echo $ENV_VAR
