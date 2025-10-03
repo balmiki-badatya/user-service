@@ -29,7 +29,6 @@ jobs:
           echo $GITHUB_RUN_NUMBER
   output-generate:
     name: output generator
-    id: op-generator
     runs-on: ubuntu-latest
     needs: [ build,test,env-test ]
     steps:
@@ -45,4 +44,4 @@ jobs:
     needs: [ build, env-test, output-generate]
     steps:
       run: |
-        echo "age from different job: ${{ jobs.op-generator.steps.op.outputs.age }}"
+        echo "age from different job: ${{ jobs.output-generate.steps.op.outputs.age }}"
