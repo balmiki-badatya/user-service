@@ -1,0 +1,14 @@
+name: user-service deployment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-docker-image:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: env
+        run: |
+          ENV_VAR = ${{ github.run.number }}
+          echo $ENV_VAR
