@@ -25,6 +25,16 @@ jobs:
         with:
           name: user-service
           path: .
+  test:
+    name: "Unit Test"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact from build
+        uses: actions/download-artifact@v5
+        with:
+          name: user-service
+      - name: list data
+        run: ls -lrt
 
 
 
