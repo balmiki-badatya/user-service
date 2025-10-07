@@ -20,8 +20,11 @@ jobs:
         uses: actions/checkout@v5
       - name: Build
         run: ./gradlew clean build -x test
-      - name: list files
-        run: ls -lrt
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: user-service
+          path: .
 
 
 
