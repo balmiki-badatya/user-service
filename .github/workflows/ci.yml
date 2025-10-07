@@ -6,7 +6,7 @@ on:
     branches: [master]
 jobs:
   build:
-    name: "Set & Build"
+    name: "Setup & Build"
     runs-on: ubuntu-latest
     steps:
       - name: Setup java
@@ -19,7 +19,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
       - name: Build
-        uses: ./gradlew clean build -x test
+        run: ./gradlew clean build -x test
       - name: list files
         run: ls -lrt
 
