@@ -5,7 +5,7 @@ on:
   push:
     branches: [master]
 jobs:
-  build:
+  setup-and-build:
     name: "Setup & Build"
     runs-on: ubuntu-latest
     steps:
@@ -27,7 +27,7 @@ jobs:
           path: .
   test:
     name: "Unit Test"
-    needs: "Setup & Build"
+    needs: setup-and-build
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact from build
