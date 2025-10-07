@@ -22,8 +22,6 @@ jobs:
         uses: ./gradlew clean build -x test
       - name: list files
         run: ls -lrt
-      - name: Upload artifact
-        uses: .
 
 
 
