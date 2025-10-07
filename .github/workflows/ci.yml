@@ -27,6 +27,7 @@ jobs:
           path: .
   test:
     name: "Unit Test"
+    needs: "Setup & Build"
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact from build
