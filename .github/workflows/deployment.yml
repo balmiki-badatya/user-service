@@ -20,8 +20,13 @@ jobs:
         uses: actions/checkout@v5
       - name: Build
         run: |
-          ./gradlew clean build -x test
+          ./gradlew clean build test
           ls -lrt
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: user-service
+          path: .
   build-docker-image:
     name: Build docker image
     needs: build
