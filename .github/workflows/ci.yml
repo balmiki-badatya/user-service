@@ -45,6 +45,7 @@ jobs:
           name: user-service
       - name: Unit test
         run: |
+          ls -lrt
           chmod +x ./gradlew
           echo "Running unit test"
           ./gradlew test
