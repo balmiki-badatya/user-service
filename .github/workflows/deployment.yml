@@ -24,6 +24,7 @@ jobs:
           ls -lrt
   build-docker-image:
     name: Build docker image
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact from build
