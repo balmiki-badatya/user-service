@@ -63,7 +63,7 @@ jobs:
       - name: Checkout app config repo
         uses: actions/checkout@v5
         with:
-          repository: https://github.com/balmiki-badatya/skillsync-devops
+          repository: balmiki-badatya/skillsync-devops
           path: skillsync-devops
           token: ${{ secrets.REPO_PAT }}
       - name: Update values
