@@ -50,11 +50,6 @@ jobs:
           echo "Running unit test"
           ./gradlew test
           ls -lrt
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: user-service-build-artifacts
-          path: build
 
 
 
