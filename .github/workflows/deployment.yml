@@ -62,11 +62,16 @@ jobs:
     steps:
       - name: Checkout app config repo
         uses: actions/checkout@v5
+        with:
+          repository: https://github.com/balmiki-badatya/skillsync-devops
+          path: skillsync-devops
+          token: ${{ secrets.REPO_PAT }}
       - name: Update values
         env:
           IMAGE_TAG: ${{ needs.build-docker-image.outputs.IMAGE_TAG }}
         run: |
-          cd helm
+          ls -lrt
+          cd skillsync-devops/helm
           echo 'tag=$IMAGE_TAG'
           yq -i '.image.tag = $IMAGE_TAG' user-service-chart/values.yaml  
           cat user-service-chart/values.yaml
