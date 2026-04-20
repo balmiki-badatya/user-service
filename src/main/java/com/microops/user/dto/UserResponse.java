@@ -1,6 +1,10 @@
 package com.microops.user.dto;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatusCode;
 
 @AllArgsConstructor
