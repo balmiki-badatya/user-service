@@ -1,0 +1,60 @@
+name: user-service CI
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+jobs:
+  setup-and-build:
+    name: "Setup & Build"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'corretto'
+          java-version: '21'
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+      - name: Checkout code
+        uses: actions/checkout@v5
+      - name: Build
+        run: |
+          ./gradlew clean build -x test
+          ls -lrt
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: user-service
+          path: .
+  test:
+    name: "Unit Test"
+    needs: setup-and-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup java
+        uses: actions/setup-java@v5
+        with:
+          distribution: corretto
+          java-version: 21
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+      - name: Download artifact from build
+        uses: actions/download-artifact@v4
+        with:
+          name: user-service
+      - name: Unit test
+        run: |
+          ls -lrt
+          chmod +x ./gradlew
+          echo "Running unit test"
+          ./gradlew test
+          ls -lrt
+
+
+
+
+
+
+
+
