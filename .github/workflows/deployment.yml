@@ -78,4 +78,6 @@ jobs:
           echo "tag=$IMAGE_TAG"
           yq -i '.image.tag = $IMAGE_TAG' config/api-svc/user-service/values-dev.yaml
           cat config/api-svc/user-service/values-dev.yaml
+
+          
   
