@@ -79,6 +79,7 @@ jobs:
           yq -i ".image.tag = \"$IMAGE_TAG\"" config/api-svc/user-service/values-dev.yaml
           cat config/api-svc/user-service/values-dev.yaml
       - name: push code to repository
+        working-directory: skillsync-devops
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
