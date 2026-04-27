@@ -75,7 +75,7 @@ jobs:
         run: |
           ls -lrt
           cd skillsync-devops/helm
-          echo 'tag=$IMAGE_TAG'
+          echo "tag=$IMAGE_TAG"
           yq -i '.image.tag = $IMAGE_TAG' skillsync-devops/helm/config/api-svc/user-service/values-dev.yaml
           cat skillsync-devops/helm/config/api-svc/user-service/values-dev.yaml
   
