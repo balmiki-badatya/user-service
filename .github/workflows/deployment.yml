@@ -31,6 +31,8 @@ jobs:
     name: Build docker image
     needs: build
     runs-on: ubuntu-latest
+    outputs:
+      IMAGE_TAG: ${{ steps.tag-image.outputs.IMAGE_TAG }}
     steps:
       - name: Download artifact from build
         uses: actions/download-artifact@v4
@@ -46,6 +48,7 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
       - name: Build, tag, and push docker image to Amazon ECR
+        id: tag-image
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: user-service
@@ -73,6 +76,6 @@ jobs:
           ls -lrt
           cd skillsync-devops/helm
           echo 'tag=$IMAGE_TAG'
-          yq -i '.image.tag = $IMAGE_TAG' user-service-chart/values.yaml  
-          cat user-service-chart/values.yaml
+          yq -i '.image.tag = $IMAGE_TAG' helm/config/api-svc/user-service/values-dev.yaml
+          cat helm/config/api-svc/user-service/values-dev.yaml
   
